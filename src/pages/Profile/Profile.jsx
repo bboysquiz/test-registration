@@ -1,12 +1,12 @@
-import React from 'react'
-import './profile.sass'
-import Header from '../../components/header/Header'
-import { useSelector} from "react-redux"
+import React from 'react';
+import './profile.sass';
+import Header from '../../components/header/Header';
+import { useSelector} from "react-redux";
 
 const Profile = () => {
-  const login = useSelector(state => state.login.login )
+  const login = useSelector(state => state.login.login );
   if (!login){
-    window.location.assign('http://localhost:3000/Login')
+    window.location.assign('http://localhost:3000/Login');
   }
   return (
     <div>
@@ -20,4 +20,4 @@ const Profile = () => {
   )
 }
 
-export default Profile
+export default Profile;

@@ -1,6 +1,6 @@
-import React from 'react'
-import './main.sass'
-import Header from '../../components/header/Header'
+import React from 'react';
+import './main.sass';
+import Header from '../../components/header/Header';
 
 
 const Main = () => {
@@ -16,4 +16,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default Main;

@@ -1,32 +1,40 @@
-import React from 'react'
-import './registration.sass'
-import Header from '../../components/header/Header'
-import data from '../../assets/db.json'
-import { useSelector} from "react-redux"
+import React, { useState } from 'react';
+import './registration.sass';
+import Header from '../../components/header/Header';
+import data from '../../assets/db.json';
+import { useSelector } from "react-redux";
 
 const Registration = () => {
-  const login = useSelector(state => state.login.login )
+  const login = useSelector(state => state.login.login);
+
+  const [loginValue, setLoginValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+  const [secondPasswordValue, setSecondPasswordValue] = useState('');
+
+  const { users: usersById } = data;
+  const users = Object.values(usersById);
+
+  function findUser(login) {
+    return users.find(user => user.login === login);
+  }
+
+  function checkPasswords(firstPassword, secondPassword) {
+    return firstPassword === secondPassword;
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
-    if (e.target[2].value !== e.target[3].value) {
-      alert('password is not equal')
-    } else {
-      let arr = []
-      for (let key in data.users) {
-        if (data.users[key].login !== e.target[1].value) {
-          arr.push('access')
-        } else {
-          arr.push('error')
-          break
-        }
-      }
-      if (arr.includes('error') !== true) {
-        alert("Success! You've registered now")
-      }else{
-        alert('This user already exists')
-      }
-
+    const user = findUser(loginValue);
+    if (user) {
+      alert('This user already exists');
+      return;
     }
+    const isPasswordSimilar = checkPasswords(passwordValue, secondPasswordValue);
+    if (!isPasswordSimilar) {
+      alert('Passwords are not similar');
+      return;
+    }
+    alert("Success! You've registered now, but in my task I don't have to insert your account in database, cause you can't use this data.");
   }
   return (
     <div>
@@ -38,11 +46,11 @@ const Registration = () => {
             <h3 className="registration__field-title">Name</h3>
             <input type="text" className="registration__field" placeholder='Enter your name...' />
             <h3 className="registration__field-title">Login</h3>
-            <input type="text" className="registration__field" placeholder='Enter your login...' />
+            <input type="text" className="registration__field" placeholder='Enter your login...' onChange={(e) => setLoginValue(e.target.value)} value={loginValue} />
             <h3 className="registration__field-title">Password</h3>
-            <input type="text" className="registration__field" placeholder='Enter your password...' />
+            <input type="text" className="registration__field" placeholder='Enter your password...' onChange={(e) => setPasswordValue(e.target.value)} value={passwordValue} />
             <h3 className="registration__field-title">Repeat password</h3>
-            <input type="text" className="registration__field" placeholder='Enter your password again...' />
+            <input type="text" className="registration__field" placeholder='Enter your password again...' onChange={(e) => setSecondPasswordValue(e.target.value)} value={secondPasswordValue} />
             <input type="submit" className="registration__submit" value='sign up' />
           </form>
           <h3 className={`registration__description ${login ? 'registration__description_showed' : 'registration__description_hiden'}`}>You've already registred and logined. You don't need this.</h3>
@@ -53,4 +61,4 @@ const Registration = () => {
   )
 }
 
-export default Registration
+export default Registration;
