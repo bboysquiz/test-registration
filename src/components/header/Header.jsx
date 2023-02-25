@@ -1,16 +1,16 @@
-import React from 'react'
-import './header.sass'
-import { Link } from 'react-router-dom'
-import { setLogout } from '../../store/loginSlice'
-import { useDispatch, useSelector} from "react-redux"
+import React from 'react';
+import './header.sass';
+import { Link } from 'react-router-dom';
+import { setLogout } from '../../store/loginSlice';
+import { useDispatch, useSelector} from "react-redux";
 
 const Header = () => {
-  const login = useSelector(state => state.login.login )
-  const dispatch = useDispatch()
+  const login = useSelector(state => state.login.login );
+  const dispatch = useDispatch();
 
   function logout() {
-    dispatch(setLogout())
-    window.location.assign('http://localhost:3000/Login')
+    dispatch(setLogout());
+    window.location.assign('http://localhost:3000/Login');
     
   }
   return (
@@ -35,4 +35,4 @@ const Header = () => {
 }
 
 
-export default Header
+export default Header;
